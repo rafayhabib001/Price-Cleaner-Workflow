@@ -1,0 +1,88 @@
+{
+  "name": "My workflow 9",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "729866c1-4a5a-4316-ba9b-431a318ca56d",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2d66cb21-0b01-4f71-aed6-264c33daa3ef",
+              "name": "row_price",
+              "value": "$500",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "9b79c439-f3e9-421c-bb1a-268484632277",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.clean_price=item.json.row_price.replace('$','')\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        416,
+        0
+      ],
+      "id": "74b0434f-9177-45ac-bcb7-18f7d9999612",
+      "name": "Code in JavaScript"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "459480e8-9cf5-46e7-bb3d-1bd9443e7d98",
+  "meta": {
+    "instanceId": "016fc0340d5bca8a0c6c73b85fee9f8049911e2827bdfaaa12c8ad88c03f5cd5"
+  },
+  "id": "agAXstP8JMe1jDOl",
+  "tags": []
+}
